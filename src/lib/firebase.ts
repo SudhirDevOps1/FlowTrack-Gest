@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { getFirestore, enableMultiTabIndexedDbPersistence } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "dummy_api_key",
@@ -18,9 +18,6 @@ const app = isFirebaseConfigured ? initializeApp(firebaseConfig) : null;
 const auth = isFirebaseConfigured ? getAuth(app!) : null;
 const db = isFirebaseConfigured ? getFirestore(app!) : null;
 
-if (db) {
-  enableMultiTabIndexedDbPersistence(db).catch(err => console.error("Persistence error", err));
-}
 
 const googleProvider = new GoogleAuthProvider();
 
