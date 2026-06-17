@@ -7,7 +7,11 @@ export function registerServiceWorker() {
         sync?: { register: (tag: string) => Promise<void> };
       }).sync;
       if (sync) {
-        await sync.register("sync-timer");
+        try {
+          await sync.register("sync-timer");
+        } catch (err) {
+          console.warn("Background sync not available yet:", err);
+        }
       }
     });
   });
