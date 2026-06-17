@@ -52,7 +52,13 @@ export function App() {
           email: firebaseUser.email,
           displayName: firebaseUser.displayName
         });
-        await initApp(firebaseUser.uid);
+        try {
+          await initApp(firebaseUser.uid);
+        } catch (err) {
+          console.error("Failed to load user data from cloud:", err);
+          // If we fail to load cloud data, we can at least drop them into the app or log them out
+          setUser(null);
+        }
       } else {
         setUser(null);
       }
